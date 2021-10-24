@@ -1,0 +1,23 @@
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="container">
+      <h1>Register</h1>
+
+      <label for="name"><b>Name</b></label>
+      <input type="text" placeholder="Enter Name" name="name" id="name" value="{{data.name}}"required><br>
+
+      <label for="email"><b>Email</b></label>
+      <input type="text" placeholder="Enter Email" name="email" id="email" value="{{data.email}}"required><br>
+  
+      <label for="password"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="password" id="password" value="{{data.password}}"required><br>
+  
+      <label for="mobile"><b>Mobile</b></label>
+      <input type="mobile" placeholder="Mobile Number" name="mobile" id="mobile" value="{{data.mobile}}"required><br>
+
+  
+      <button type="submit" class="registerbtn">Update</button>
+    </div>
+  
+  </form>
+  

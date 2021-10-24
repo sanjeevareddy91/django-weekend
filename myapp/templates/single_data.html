@@ -1,0 +1,3 @@
+{{data}} {{data.email}} {{data.password}} {{data.mobile}}
+<br><br>
+<a href="{% url 'update_data' name=data.name %}"><button type="submit">Update</button></a> &nbsp;&nbsp;&nbsp;&nbsp; <a href="{% url 'delete_data' name=data.name %}"><button type="submit">Delete</button></a>

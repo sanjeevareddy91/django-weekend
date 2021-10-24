@@ -1,0 +1,6 @@
+<!-- {{data}} -->
+
+{% for ele in data %}
+    <a href="{% url 'single_data' name=ele.name %}">{{ele}}</a><br>
+
+{% endfor %}
