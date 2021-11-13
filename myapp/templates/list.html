@@ -1,6 +1,14 @@
-<!-- {{data}} -->
+{% extends 'main.html' %}
 
-{% for ele in data %}
-    <a href="{% url 'single_data' name=ele.name %}">{{ele}}</a><br>
+{% block content %}
+{% if user.is_authenticated %}
+    {% for ele in data %}
+        <a href="{% url 'single_data' name=ele.name %}">{{ele}}</a><br>
 
-{% endfor %}
+    {% endfor %}
+{% else %}
+
+    You havent Logged IN Yet, Please <a href="{% url 'login_user' %}">Login</a> first
+
+{% endif %}
+{% endblock %}

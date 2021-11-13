@@ -1,3 +1,6 @@
+{% extends 'main.html' %}
+
+{% block content %}
 <form action="" method="POST">
     {% csrf_token %}
     <div class="container">
@@ -15,9 +18,15 @@
       <label for="mobile"><b>Mobile</b></label>
       <input type="mobile" placeholder="Mobile Number" name="mobile" id="mobile" required><br>
 
-  
+      <label for="address"><b>Address</b></label>
+      <input type="text" placeholder="Address" name="address" id="address" required><br>
+
+      <label for="profile_pic"><b>Profile Pic</b></label>
+      <input type="file" placeholder="Upload Image" name="profile_pic" id="profile_pic"><br>
+      <input type="checkbox" id="superuser" name="superuser" value="True">
+      <label for="superuser">Issuperuser</label><br>
       <button type="submit" class="registerbtn">Register</button>
     </div>
   
   </form>
-  
+{% endblock %}

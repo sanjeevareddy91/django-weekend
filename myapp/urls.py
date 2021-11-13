@@ -1,11 +1,16 @@
+from django.contrib.auth import logout
 from django.urls import path
-from .views import hello,register_data,data_list, single_data, update_data,delete_data
+from .views import hello, login_user,register_data,data_list, single_data, update_data,delete_data,register_modelform,register_normalform,login_user,logout_user
 
 urlpatterns = [
     path('hello',hello),
-    path('register',register_data,name="register_data"),
+    path('register/',register_data,name="register_data"),
     path('list',data_list,name="data_list"),
     path('single_data/<name>',single_data,name="single_data"),
     path('update_data/<name>',update_data,name="update_data"),
     path('delete_data/<name>',delete_data,name="delete_data"),
+    path('register_modelform',register_modelform,name="register_modelform"),
+    path('register_normalform',register_normalform,name="register_normalform"),
+    path('login/',login_user,name="login_user"),
+    path('logout/',logout_user,name="logout_user"),
 ]

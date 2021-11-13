@@ -1,0 +1,10 @@
+In DJango We have 3 Ways of forms creation.
+
+    # 1) Model Forms -- Where data saving and fields validationw will be done based on the models itself.
+    # 2) Normal Forms -- Where new form is defined and the data will be saved by using the manual logics.
+    # 3) Html Forms -- Normal way of creatin the html and saving the info..
+
+# crispy_forms -- Bootstrap module for adding the UI for the Django Forms.
+
+# pip install django-crispy-forms 
+

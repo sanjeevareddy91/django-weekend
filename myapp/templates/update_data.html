@@ -1,3 +1,6 @@
+{% extends 'main.html' %}
+
+{% block content %}
 <form action="" method="POST">
     {% csrf_token %}
     <div class="container">
@@ -8,10 +11,7 @@
 
       <label for="email"><b>Email</b></label>
       <input type="text" placeholder="Enter Email" name="email" id="email" value="{{data.email}}"required><br>
-  
-      <label for="password"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="password" id="password" value="{{data.password}}"required><br>
-  
+    
       <label for="mobile"><b>Mobile</b></label>
       <input type="mobile" placeholder="Mobile Number" name="mobile" id="mobile" value="{{data.mobile}}"required><br>
 
@@ -20,4 +20,5 @@
     </div>
   
   </form>
-  
+
+{% endblock %}
