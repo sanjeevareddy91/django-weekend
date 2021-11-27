@@ -7,8 +7,47 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail
 from django.conf import settings
+import random
+import requests
+import json
 # Create your views here.
 
+
+def sms_send(msg):
+    # mention url
+    url = "https://www.fast2sms.com/dev/bulk"
+    
+    
+    # create a dictionary
+    my_data = {
+        # Your default Sender ID
+        'sender_id': 'FSTSMS', 
+        
+        # Put your message here!
+        'message': msg, 
+        
+        'language': 'english',
+        'route': 'p',
+        
+        # You can send sms to multiple numbers
+        # separated by comma.
+        'numbers': '9502563925,8688364718'    
+    }
+    
+    # create a dictionary
+    headers = {
+        'authorization': 'n96mTfqdKo5sVQXLNMW32RG4h8HtUYEwvFkByupAgxIrZlJPiSqGr0D6xJkwb13CSIyQs5u8B9c7HXmt',
+        'Content-Type': "application/x-www-form-urlencoded",
+        'Cache-Control': "no-cache"
+    }
+    response = requests.request("POST",
+                                url,
+                                data = my_data,
+                                headers = headers)
+    returned_msg = json.loads(response.text)
+    return returned_msg
+    # print the send message
+    
 def hello(request):
     return HttpResponse("Hello world")
 
@@ -108,3 +147,44 @@ def logout_user(request):
     logout(request)
     messages.success(request,"Logged Out Successfully")
     return redirect('login_user')
+
+def forgot_password(request):
+    if request.method == "POST":
+        email = request.POST['email']
+        check_email = Register.objects.filter(email=email)
+        if check_email:
+            new_otp = random.randint(1000,999999)
+            msg = "Hi {}, Please use {} OTP for Password Update Verification".format(check_email[0].name,new_otp)
+            # send_mail("Password Update Request OTP",msg,settings.EMAIL_HOST_USER,[email],fail_silently=False)
+            sms_send(msg)
+            check_email[0].otp = new_otp
+            check_email[0].save()
+            messages.success(request,"Otp Sent to Email")
+            return redirect('verify_otp',id=check_email[0].id)
+        else:
+            messages.error(request,"Enter correct email!")
+
+    return render(request,'forgot_password.html')
+
+def verify_otp(request,id):
+    get_info = Register.objects.get(id=id)
+    if request.method == "POST":
+        otp = request.POST['otp']
+        if get_info.otp == otp:
+            messages.success(request,"OTP Verified")
+            return redirect('confirm_password',id=get_info.id)
+        else:
+            messages.warning(request,"OTP missmatch check it once!")
+    return render(request,"verify_otp.html")
+
+def confirm_password(request,id):
+    get_info = Register.objects.get(id=id)
+    if request.method == "POST":
+        new_password = request.POST['new_password']
+        user_data = get_info.user
+        print(user_data)
+        user_data.set_password(new_password)
+        user_data.save()
+        messages.success(request,'Password Updated Successfully')
+        return redirect('login_user')
+    return render(request,"confirm_password.html")

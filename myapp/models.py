@@ -9,6 +9,7 @@ class Register(models.Model):
     address = models.TextField()
     profile_pic = models.FileField(blank=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
+    otp = models.CharField(max_length=6,null=True,blank=True)
 
     def __str__(self):
         return self.name 

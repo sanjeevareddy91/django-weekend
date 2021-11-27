@@ -1,0 +1,14 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="container">
+      <h1>Verify OTP</h1>
+      <label for="email"><b>OTP</b></label>
+      <input type="text" placeholder="Confirm OTP" name="otp" id="otp" required><br>
+      <button type="submit" class="registerbtn">Verify OTP</button>
+    </div>
+  
+  </form>
+{% endblock %}
